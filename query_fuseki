@@ -1,0 +1,182 @@
+
+#Pizze con i vari topping
+
+PREFIX pizza: <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?x ?y
+WHERE {
+  ?x rdfs:subClassOf  [    owl:onProperty      pizza:hasTopping ;
+                           owl:someValuesFrom  ?y
+                      ] ;
+}
+LIMIT 25
+
+------------------------------
+
+#Tutte le pizze con un nome
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?x
+WHERE {
+  ?x rdfs:subClassOf :NamedPizza.
+  :NamedPizza rdfs:subClassOf :Pizza .
+}
+LIMIT 25
+
+----------------------------
+
+#Tutte le pizze con la mozzarella
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?x
+WHERE {
+  ?x rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :MozzarellaTopping;
+                      ] ;
+}
+LIMIT 25
+
+------------------------------
+
+#Tutte le pizze con mozzarella e olive
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?x ?y
+WHERE {
+  ?x rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :MozzarellaTopping;
+                      ] ;
+     rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :OliveTopping;
+                      ] ;
+}
+
+--------------------------------------------------------------
+
+# Prima prova di data integration
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?l ?a
+WHERE {
+  ?a rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :MozzarellaTopping;
+                      ] ;
+     rdfs:label ?l.
+  SERVICE <http://localhost:8080/sparql> {
+     ?x	:hasTemperature ?y;
+		:hasTime	?z;
+  		rdfs:label ?l.
+  }
+}
+
+
+---------------------------------------------------------------
+
+# Seconda Prova
+
+http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0A%0ASELECT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AOliveTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A++%09+%3Fh+%09%3Avalue+%3Ftemp%3B%0A%09%09%09%3AcapturedAt%09%3Ftime%3B%0A++%09%09%09rdfs%3Alabel+%3Fl.%0A++%7D%0A%7D
+
+
+------------------------------------------------------------------
+
+# Terza Prova --> Filtro su intervalli di tempo (funziona solo valutazione esterna(Fuseki) ma non interna (ontop - problema differenza tra dateTime)
+
+http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ASELECT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AOliveTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl+.%0A++%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A++%09+%3Fh+%09%3Avalue+%3Ftemp%3B%0A%09%09%09%3AcapturedAt%09%3Ftime%3B%0A++%09%09%09rdfs%3Alabel+%3Fl.%0A++%7D%0A++%0A++BIND+((now()+-+%22PT4H%22%5E%5Exsd%3AdayTimeDuration)+AS+%3Fduration)%0A++FILTER(+%3Ftime+%3C%3D+now()+%26%26+%3Ftime+%3E+%3Fduration+)%0A%7D
+
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?x ?temp ?time
+WHERE {
+  ?x rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :MozzarellaTopping;
+                      ] ;
+     rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :OliveTopping;
+                      ] ;
+     rdfs:label ?l .
+  
+  SERVICE <http://localhost:8080/sparql> {
+  	 ?h 	:value ?temp;
+			:capturedAt	?time;
+  			rdfs:label ?l.
+  }
+  
+  BIND ((now() - "PT4H"^^xsd:dayTimeDuration) AS ?duration)
+  FILTER( ?time <= now() && ?time > ?duration )
+}
+
+
+----------------------------------------------------------------
+
+############### NUOVA ONTOLOGIA #########################
+
+#Q1: Margherite infornate entro 2d4h
+
+http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ASELECT+DISTINCT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl+.%0A++%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A%09++++%3Fh+a+%3AMargherita%3B+rdfs%3Alabel+%3Fl.%0A++++%09%3Fh+%3AhasSensorMeasure+%5B%3Avalue+%3Ftemp%3B+%3AcapturedAt+%3Ftime%5D.%0A++%7D%0A++%0A++BIND+((now()+-+%22P2DT4H%22%5E%5Exsd%3AdayTimeDuration)+AS+%3Fduration)%0A++FILTER(+%3Ftime+%3C%3D+now()+%26%26+%3Ftime+%3E+%3Fduration+)%0A%7D
+
+
+#Q2: Margherite infornate entro 4h
+
+http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ASELECT+DISTINCT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl+.%0A++%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A%09++++%3Fh+a+%3AMargherita%3B+rdfs%3Alabel+%3Fl.%0A++++%09%3Fh+%3AhasSensorMeasure+%5B%3Avalue+%3Ftemp%3B+%3AcapturedAt+%3Ftime%5D.%0A++%7D%0A++%0A++BIND+((now()+-+%22PT4H%22%5E%5Exsd%3AdayTimeDuration)+AS+%3Fduration)%0A++FILTER(+%3Ftime+%3C%3D+now()+%26%26+%3Ftime+%3E+%3Fduration+)%0A%7D
+
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?x ?temp ?time
+WHERE {
+  ?x rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :MozzarellaTopping;
+                      ] ;
+     rdfs:label ?l .
+  
+  SERVICE <http://localhost:8080/sparql> {
+	    ?h a :Margherita; rdfs:label ?l.
+    	?h :hasSensorMeasure [:value ?temp; :capturedAt ?time].
+  }
+  
+  BIND ((now() - "PT4H"^^xsd:dayTimeDuration) AS ?duration)
+  FILTER( ?time <= now() && ?time > ?duration )
+}
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

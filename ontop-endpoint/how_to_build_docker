@@ -1,0 +1,2 @@
+$ sudo docker build -t my-ontop-endpoint .
+$ sudo docker run -it --rm --name my-running-ontop-endpoint -p 8080:8080 my-ontop-endpoint

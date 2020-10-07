@@ -1,0 +1,18 @@
+CREATE SCHEMA "pizzaDB";
+
+CREATE TABLE "pizzaDB"."ovenSensor" (	"pizzaID" INT NOT NULL,
+					"temp" DECIMAL(4,1) NOT NULL,
+					"timestamp" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					PRIMARY KEY ("pizzaID")
+				      );
+				
+CREATE TABLE "pizzaDB"."pizzaType" ( 	"pizzaID" INT NOT NULL,
+					"menuName" VARCHAR(30) NOT NULL,
+					PRIMARY KEY ("pizzaID")
+				     );
+				  
+INSERT INTO "pizzaDB"."ovenSensor"("pizzaID","temp")
+VALUES (123,250.5),(456,270.2),(789,260.9),(333,380.0);
+
+INSERT INTO "pizzaDB"."pizzaType"("pizzaID","menuName")
+VALUES (123,'Veneziana'),(456,'Giardiniera'),(789,'FourSeasons'),(333,'FourSeasons');
