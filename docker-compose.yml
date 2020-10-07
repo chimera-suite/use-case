@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+    h2:
+        hostname: h2
+        container_name: h2
+        image: "oscarfonts/h2"
+        environment: 
+            - "H2_OPTIONS=-ifNotExists"
+        ports:
+            - "1521:1521"
+            - "81:81"
+        volumes: 
+            - "./h2-data:/opt/h2-data"
+    ontop:
+        hostname: ontop
+        container_name: ontop
+        image: "ontop/ontop-endpoint"
+        environment: 
+            - "ONTOLOGY_FILE=/opt/ontop/input/pizza-full.owl"
+            - "MAPPING_FILE=/opt/ontop/input/pizza-full.obda"
+            - "PROPERTIES_FILE=/opt/ontop/input/pizza-full.docker.properties"
+        ports:
+            - "8080:8080"
+        volumes: 
+            - "./ontop-endpoint/input:/opt/ontop/input"
+            - "./ontop-endpoint/jdbc:/opt/ontop/jdbc"
+    jena-fuseki:
+        hostname: jena-fuseki
+        container_name: jena-fuseki
+        image: "stain/jena-fuseki"
+        environment: 
+             - "ADMIN_PASSWORD=admin"
+        ports:
+            - "3030:3030"
+        volumes: 
+            - "./fuseki:/fuseki"
