@@ -14,23 +14,35 @@ terms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
 mappingId	pizza-FourSeasons
-target		:Pizza/{pizzaID} a :FourSeasons ; rdfs:label {menuName}@en . 
-source		SELECT * FROM "pizzaDB"."pizzaType" WHERE  "menuName" = 'FourSeasons'
+target		:{pizzaID} a :FourSeasons ; rdfs:label {menuName}@en . 
+source		SELECT * FROM "pizzaDB"."pizza" WHERE  "menuName" = 'FourSeasons'
 
 mappingId	pizza-Margherita
-target		:Pizza/{pizzaID} a :Margherita ; rdfs:label {menuName}@en . 
-source		SELECT * FROM "pizzaDB"."pizzaType" WHERE  "menuName" = 'Margherita'
+target		:{pizzaID} a :Margherita ; rdfs:label {menuName}@en . 
+source		SELECT * FROM "pizzaDB"."pizza" WHERE  "menuName" = 'Margherita'
 
 mappingId	pizza-Veneziana
-target		:Pizza/{pizzaID} a :Veneziana ; rdfs:label {menuName}@en . 
-source		SELECT * FROM "pizzaDB"."pizzaType" WHERE  "menuName" = 'Veneziana'
+target		:{pizzaID} a :Veneziana ; rdfs:label {menuName}@en . 
+source		SELECT * FROM "pizzaDB"."pizza" WHERE  "menuName" = 'Veneziana'
 
 mappingId	pizza-Pizza(General)
-target		:Pizza/{pizzaID} a :Pizza ; rdfs:label {menuName}@en . 
-source		SELECT * FROM "pizzaDB"."pizzaType"
+target		:{pizzaID} a :Pizza ; rdfs:label {menuName}@en . 
+source		SELECT * FROM "pizzaDB"."pizza"
 
-mappingId	pizza-OvenSensor
-target		:Pizza/{pizzaID} a :Pizza ; :hasSensorMeasure :SensorMeasure/S1/{pizzaID} . :SensorMeasure/S1/{pizzaID} :value {temp}^^xsd:decimal ; :capturedAt {timestamp}^^xsd:dateTime . 
-source		SELECT * FROM "pizzaDB"."ovenSensor"
+mappingId	measures
+target		:{pizzaID} :hasSensorMeasure :{measureID} . :{measureID} a :SensorMeasure ; :value {value}^^xsd:decimal ; :capturedAt {timestamp}^^xsd:dateTime ; :detectedBy :{sensorID} . 
+source		SELECT * FROM "pizzaDB"."measures"
+
+mappingId	sensor-TemperatureSensor
+target		:{sensorID} a :TemperatureSensor . 
+source		SELECT * FROM "pizzaDB"."sensor" WHERE  "measureType" = 'TEMPERATURE'
+
+mappingId	sensor-HumiditySensor
+target		:{sensorID} a :HumiditySensor . 
+source		SELECT * FROM "pizzaDB"."sensor" WHERE  "measureType" = 'HUMIDITY'
+
+mappingId	sensor-CO2Sensor
+target		:{sensorID} a :CO2Sensor . 
+source		SELECT * FROM "pizzaDB"."sensor" WHERE  "measureType" = 'CO2'
 ]]
 

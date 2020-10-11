@@ -105,6 +105,23 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     
 
 
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#detectedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#detectedBy">
+        <owl:inverseOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#detects"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure"/>
+        <rdfs:range rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Sensor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#detects -->
+
+    <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#detects"/>
+    
+
+
     <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase -->
 
     <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase">
@@ -139,7 +156,7 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#hasSensorMeasure -->
 
     <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasSensorMeasure">
-        <owl:inverseOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#isSensorMeasureOf"/>
+        <owl:inverseOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#relativeTo"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Food"/>
         <rdfs:range rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure"/>
@@ -189,18 +206,20 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     
 
 
-    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#isSensorMeasureOf -->
-
-    <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#isSensorMeasureOf"/>
-    
-
-
     <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#isToppingOf -->
 
     <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#isToppingOf">
         <rdfs:subPropertyOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#isIngredientOf"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:comment xml:lang="en">Any given instance of topping should only be added to a single pizza (no cheap half-measures on our pizzas)</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#relativeTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#relativeTo">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
     </owl:ObjectProperty>
     
 
@@ -219,7 +238,6 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#capturedAt -->
 
     <owl:DatatypeProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#capturedAt">
-        <rdfs:subPropertyOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#temperature"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
@@ -227,19 +245,9 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     
 
 
-    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#temperature -->
-
-    <owl:DatatypeProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#temperature">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure"/>
-    </owl:DatatypeProperty>
-    
-
-
     <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#value -->
 
     <owl:DatatypeProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#value">
-        <rdfs:subPropertyOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#temperature"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
@@ -415,6 +423,14 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
         <rdfs:label xml:lang="en">AsparagusTopping</rdfs:label>
         <rdfs:label xml:lang="pt">CoberturaDeAspargos</rdfs:label>
         <skos:prefLabel xml:lang="en">Asparagus</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#CO2Sensor -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#CO2Sensor">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Sensor"/>
     </owl:Class>
     
 
@@ -749,6 +765,7 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept -->
 
     <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept">
+        <owl:disjointWith rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Sensor"/>
         <owl:disjointWith rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure"/>
         <owl:disjointWith rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#ValuePartition"/>
         <rdfs:label xml:lang="en">DomainThing</rdfs:label>
@@ -1201,6 +1218,14 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
         <rdfs:label xml:lang="pt">CoberturaDeBifePicante</rdfs:label>
         <rdfs:label xml:lang="en">HotSpicedBeefTopping</rdfs:label>
         <skos:prefLabel xml:lang="en">Hot Spiced Beef</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#HumiditySensor -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#HumiditySensor">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Sensor"/>
     </owl:Class>
     
 
@@ -2190,6 +2215,15 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     
 
 
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Sensor -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Sensor">
+        <owl:disjointWith rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure"/>
+        <owl:disjointWith rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#ValuePartition"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure -->
 
     <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#SensorMeasure">
@@ -2575,6 +2609,14 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
         <rdfs:label xml:lang="pt">CoberturaDePimentaoDoce</rdfs:label>
         <rdfs:label xml:lang="en">SweetPepperTopping</rdfs:label>
         <skos:prefLabel xml:lang="en">Sweet Pepper</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#TemperatureSensor -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#TemperatureSensor">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Sensor"/>
     </owl:Class>
     
 

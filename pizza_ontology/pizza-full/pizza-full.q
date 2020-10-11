@@ -1,54 +1,34 @@
-[QueryItem="pizza-type"]
+[QueryItem="pizza-AllSensors"]
 PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
 
-SELECT ?x ?y
-WHERE 	{ ?x	a	:Pizza;
-		rdfs:label	?y.
+SELECT ?pizza ?sensor ?temp ?time
+WHERE 	{ 
+	    ?pizza :hasSensorMeasure [:value ?temp; :capturedAt ?time; :detectedBy ?sensor].
 	}
 
-[QueryItem="pizza-oven"]
+[QueryItem="pizza-AllTemeperatures"]
 PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
 
-SELECT DISTINCT ?x ?y ?temp ?time
+SELECT ?pizza  ?sensor ?temp ?time
 WHERE 	{ 
-	    ?x :hasSensorMeasure ?y.
-	    ?y :value ?temp; :capturedAt ?time.
+	    ?pizza :hasSensorMeasure [:value ?temp; :capturedAt ?time; :detectedBy ?sensor].
+	    ?sensor a :TemperatureSensor.
 	}
 
-[QueryItem="pizza-margherita"]
+[QueryItem="pizza-AllHumidities"]
 PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
 
-SELECT DISTINCT ?x ?y ?temp ?time
+SELECT ?pizza  ?sensor ?temp ?time
 WHERE 	{ 
-	    ?x a :Margherita; a :Pizza; a :NamedPizza.
-	    ?x :hasSensorMeasure ?y.
-	    ?y :value ?temp; :capturedAt ?time.
+	    ?pizza :hasSensorMeasure [:value ?temp; :capturedAt ?time; :detectedBy ?sensor].
+	    ?sensor a :HumiditySensor.
 	}
 
-[QueryItem="pizza-oven2"]
+[QueryItem="S2-SensedBy"]
 PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
 
-SELECT DISTINCT ?pizza ?temp ?time
+SELECT ?pizza ?humidity
 WHERE 	{ 
-	    ?pizza :hasSensorMeasure [:value ?temp; :capturedAt ?time].
-	}
-
-[QueryItem="pizza-fourSeasons"]
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-
-SELECT DISTINCT ?x ?y ?temp ?time
-WHERE 	{ 
-	    ?x a :FourSeasons; a :Pizza; :hasTopping :OliveTopping.
-	    ?x :hasSensorMeasure ?y.
-	    ?y :value ?temp; :capturedAt ?time.
-	}
-
-[QueryItem="TODO-fix"]
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-
-SELECT DISTINCT ?x ?y ?temp ?time
-WHERE 	{ 
-	    ?x a :Pizza.
-	    ?x :hasSensorMeasure ?y.
-	    ?y :value ?temp; :capturedAt ?time.
+	    :S2 a :Sensor; a :HumiditySensor.
+	    :S2 :detects [:value ?humidity; :relativeTo ?pizza]. 
 	}

@@ -1,103 +1,17 @@
+#### Una breve descrizione dell' estensione dell' ontologia pizza.owl:
 
-#Pizze con i vari topping
+:{pizzaID} :hasSensorMeasure :{measureID} [ a :SensorMeasure ; :value {value}^^xsd:decimal ; :capturedAt {timestamp}^^xsd:dateTime ; :detectedBy :{sensorID} ].
 
-PREFIX pizza: <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
+:{sensorID} a :Sensor; :detects [a :SensorMeasure ; :relativeTo :{pizzaID}]. 
 
-SELECT ?x ?y
-WHERE {
-  ?x rdfs:subClassOf  [    owl:onProperty      pizza:hasTopping ;
-                           owl:someValuesFrom  ?y
-                      ] ;
-}
-LIMIT 25
-
-------------------------------
-
-#Tutte le pizze con un nome
-
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-
-SELECT ?x
-WHERE {
-  ?x rdfs:subClassOf :NamedPizza.
-  :NamedPizza rdfs:subClassOf :Pizza .
-}
-LIMIT 25
-
-----------------------------
-
-#Tutte le pizze con la mozzarella
-
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-
-SELECT ?x
-WHERE {
-  ?x rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
-                           owl:someValuesFrom  :MozzarellaTopping;
-                      ] ;
-}
-LIMIT 25
-
-------------------------------
-
-#Tutte le pizze con mozzarella e olive
-
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-
-SELECT ?x ?y
-WHERE {
-  ?x rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
-                           owl:someValuesFrom  :MozzarellaTopping;
-                      ] ;
-     rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
-                           owl:someValuesFrom  :OliveTopping;
-                      ] ;
-}
-
---------------------------------------------------------------
-
-# Prima prova di data integration
-
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-
-SELECT ?l ?a
-WHERE {
-  ?a rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
-                           owl:someValuesFrom  :MozzarellaTopping;
-                      ] ;
-     rdfs:label ?l.
-  SERVICE <http://localhost:8080/sparql> {
-     ?x	:hasTemperature ?y;
-		:hasTime	?z;
-  		rdfs:label ?l.
-  }
-}
-
-
----------------------------------------------------------------
-
-# Seconda Prova
-
-http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0A%0ASELECT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AOliveTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A++%09+%3Fh+%09%3Avalue+%3Ftemp%3B%0A%09%09%09%3AcapturedAt%09%3Ftime%3B%0A++%09%09%09rdfs%3Alabel+%3Fl.%0A++%7D%0A%7D
+:{sensorID} a :TemperatureSensor.
+:{sensorID} a :HumiditySensor.
+:{sensorID} a :CO2Sensor.
 
 
 ------------------------------------------------------------------
 
-# Terza Prova --> Filtro su intervalli di tempo (funziona solo valutazione esterna(Fuseki) ma non interna (ontop - problema differenza tra dateTime)
-
-http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ASELECT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AOliveTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl+.%0A++%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A++%09+%3Fh+%09%3Avalue+%3Ftemp%3B%0A%09%09%09%3AcapturedAt%09%3Ftime%3B%0A++%09%09%09rdfs%3Alabel+%3Fl.%0A++%7D%0A++%0A++BIND+((now()+-+%22PT4H%22%5E%5Exsd%3AdayTimeDuration)+AS+%3Fduration)%0A++FILTER(+%3Ftime+%3C%3D+now()+%26%26+%3Ftime+%3E+%3Fduration+)%0A%7D
+# Q1 : Pizze con Olive e Mozzarella, con filtro su intervalli di tempo (funziona solo valutazione esterna(Fuseki) ma non interna (ontop - problema differenza tra dateTime))
 
 
 PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
@@ -115,30 +29,47 @@ WHERE {
                       ] ;
      rdfs:label ?l .
   
-  SERVICE <http://localhost:8080/sparql> {
-  	 ?h 	:value ?temp;
-			:capturedAt	?time;
-  			rdfs:label ?l.
+  SERVICE <http://ontop:8080/sparql> {
+    ?h 	:hasSensorMeasure [:value ?temp; :capturedAt	?time];
+  		rdfs:label ?l.
   }
   
-  BIND ((now() - "PT4H"^^xsd:dayTimeDuration) AS ?duration)
+  BIND ((now() - "P15DT4H"^^xsd:dayTimeDuration) AS ?duration)
   FILTER( ?time <= now() && ?time > ?duration )
 }
 
 
-----------------------------------------------------------------
-
-############### NUOVA ONTOLOGIA #########################
-
-#Q1: Margherite infornate entro 2d4h
-
-http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ASELECT+DISTINCT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl+.%0A++%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A%09++++%3Fh+a+%3AMargherita%3B+rdfs%3Alabel+%3Fl.%0A++++%09%3Fh+%3AhasSensorMeasure+%5B%3Avalue+%3Ftemp%3B+%3AcapturedAt+%3Ftime%5D.%0A++%7D%0A++%0A++BIND+((now()+-+%22P2DT4H%22%5E%5Exsd%3AdayTimeDuration)+AS+%3Fduration)%0A++FILTER(+%3Ftime+%3C%3D+now()+%26%26+%3Ftime+%3E+%3Fduration+)%0A%7D
+------------------------------------------------------------------------------------------
 
 
-#Q2: Margherite infornate entro 4h
+# Q2 : Le pizze margherita infornate entro tot tempo
 
-http://localhost:3030/dataset.html#query=PREFIX+%3A+%3Chttp%3A%2F%2Fwww.co-ode.org%2Fontologies%2Fpizza%2Fpizza.owl%23%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ASELECT+DISTINCT+%3Fx+%3Ftemp+%3Ftime%0AWHERE+%7B%0A++%3Fx+rdfs%3AsubClassOf++%5B++++owl%3AonProperty++++++%3AhasTopping+%3B%0A+++++++++++++++++++++++++++owl%3AsomeValuesFrom++%3AMozzarellaTopping%3B%0A++++++++++++++++++++++%5D+%3B%0A+++++rdfs%3Alabel+%3Fl+.%0A++%0A++SERVICE+%3Chttp%3A%2F%2Flocalhost%3A8080%2Fsparql%3E+%7B%0A%09++++%3Fh+a+%3AMargherita%3B+rdfs%3Alabel+%3Fl.%0A++++%09%3Fh+%3AhasSensorMeasure+%5B%3Avalue+%3Ftemp%3B+%3AcapturedAt+%3Ftime%5D.%0A++%7D%0A++%0A++BIND+((now()+-+%22PT4H%22%5E%5Exsd%3AdayTimeDuration)+AS+%3Fduration)%0A++FILTER(+%3Ftime+%3C%3D+now()+%26%26+%3Ftime+%3E+%3Fduration+)%0A%7D
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
+SELECT DISTINCT ?class ?pizzaID
+WHERE {
+  ?class rdfs:subClassOf  [    owl:onProperty      :hasTopping ;
+                           owl:someValuesFrom  :MozzarellaTopping;
+                      ] ;
+     rdfs:label ?l .
+  
+  SERVICE <http://ontop:8080/sparql> {
+	    ?pizzaID a :Margherita; rdfs:label ?l;
+    	   :hasSensorMeasure [:value ?temp; :capturedAt ?time].
+  }
+  
+  BIND ((now() - "P15DT4H"^^xsd:dayTimeDuration) AS ?duration)
+  FILTER( ?time <= now() && ?time > ?duration )
+}
+
+
+-----------------------------------------------------------------------------------------------
+
+
+# Q3 : Le misure rilevate delle pizze quattro stagioni
 
 PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -152,23 +83,61 @@ WHERE {
                       ] ;
      rdfs:label ?l .
   
-  SERVICE <http://localhost:8080/sparql> {
-	    ?h a :Margherita; rdfs:label ?l.
-    	?h :hasSensorMeasure [:value ?temp; :capturedAt ?time].
+  SERVICE <http://ontop:8080/sparql> {
+	    ?h a :FourSeasons; rdfs:label ?l;
+             :hasSensorMeasure [:value ?temp; :capturedAt ?time].
   }
   
-  BIND ((now() - "PT4H"^^xsd:dayTimeDuration) AS ?duration)
+  BIND ((now() - "P9DT4H"^^xsd:dayTimeDuration) AS ?duration)
   FILTER( ?time <= now() && ?time > ?duration )
 }
+
 
 -----------------------------------------------------------------------------------------------
 
 
+# Q4 : Le rilevazioni di temperatura fatte dai vari sensori S1,...Sn
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+
+SELECT ?pizza  ?sensor ?temp ?time
+WHERE {
+		SERVICE <http://ontop:8080/sparql> { 
+	    		?pizza :hasSensorMeasure [:value ?temp; :capturedAt ?time; :detectedBy ?sensor].
+	    		?sensor a :TemperatureSensor.
+	  	}
+      }
+	  
+
+---------------------------------------------------------------------------------------------
 
 
+# Q5 : Le rilevazioni di umidità fatte dai vari sensori S1,...Sn
+
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+
+SELECT ?pizza  ?sensor ?temp ?time
+WHERE {
+		SERVICE <http://ontop:8080/sparql> { 
+	    		?pizza :hasSensorMeasure [:value ?temp; :capturedAt ?time; :detectedBy ?sensor].
+	    		?sensor a :HumiditySensor.
+	  	}
+      }
+
+-----------------------------------------------------------------------------------------------
 
 
+# Q6 : Le misure effettuate dal sensore S2
 
+PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
+
+SELECT ?pizza ?humidity
+WHERE {
+		SERVICE <http://ontop:8080/sparql> { 
+	    		:S2 a :Sensor; a :HumiditySensor.
+	    		:S2 :detects [:value ?humidity; :relativeTo ?pizza]. 
+	  	}
+      }
 
 
 
