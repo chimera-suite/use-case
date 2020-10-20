@@ -22,6 +22,6 @@ start-thriftserver.sh \
 	--master spark://localhost:7077 \
 	--deploy-mode client \
 	--hiveconf hive.server2.thrift.port=10000 \
-	--hiveconf hive.server2.thrift.bind.host=localhost
+	--hiveconf hive.server2.thrift.bind.host=0.0.0.0
 
 tail -f /dev/null
