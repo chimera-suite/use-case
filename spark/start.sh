@@ -3,13 +3,13 @@
 start-master.sh \
 	--host localhost \
 	--port 7077 \
-	--webui-port 8080
+	--webui-port 8050
 
 start-slave.sh \
 	spark://localhost:7077 \
 	--host localhost \
 	--port 7077 \
-	--webui-port 8081
+	--webui-port 8051
 
 spark-sql \
 	--name SPARKSQL-INSERTIONS \

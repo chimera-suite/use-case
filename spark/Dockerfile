@@ -22,7 +22,8 @@ COPY pizzaDB.sql pizzaDB.sql
 
 RUN chmod +x start.sh
 
-EXPOSE 8080
+EXPOSE 8050
+EXPOSE 8051
 EXPOSE 10000
 
 CMD [ "./start.sh" ]
