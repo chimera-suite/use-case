@@ -7,7 +7,7 @@ foo@bar:~$ sudo ./docker-build.sh
 foo@bar:~$ sudo docker-compose up
 ```
 
-## QUERY EXAMPLE
+## QUERY EXAMPLE (localhost:3030  admin:admin)
 
 
     PREFIX : <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
