@@ -1,16 +1,16 @@
 version: "3.8"
 services:
-    h2:
-        hostname: h2
-        container_name: h2
-        image: "oscarfonts/h2"
-        environment: 
-            - "H2_OPTIONS=-ifNotExists"
-        ports:
-            - "1521:1521"
-            - "81:81"
-        volumes: 
-            - "./h2-data:/opt/h2-data"
+    #h2:
+    #    hostname: h2
+    #    container_name: h2
+    #    image: "oscarfonts/h2"
+    #    environment: 
+    #        - "H2_OPT#IONS=-ifNotExists"
+    #    ports:
+    #        - "1521:1521"
+    #        - "81:81" # endpoint
+    #    volumes: 
+    #        - "./h2-data:/opt/h2-data"
     spark:
         hostname: spark
         container_name: spark
@@ -19,20 +19,22 @@ services:
             - "8050:8050"  # Spark master
             - "8051:8051"  # Spark worker
             - "7078:7078"
-            - "10000:10000"  # ThriftSerevr endpoint
+            - "10000:10000"  # ThriftSerevr JDBC endpoint
     ontop:
         hostname: ontop
         container_name: ontop
-        image: "ontop/ontop-endpoint"
+        image: "ontop-endpoint"
         environment: 
-            - "ONTOLOGY_FILE=/opt/ontop/input/pizza-full.owl"
-            - "MAPPING_FILE=/opt/ontop/input/pizza-full.obda"
-            - "PROPERTIES_FILE=/opt/ontop/input/pizza-full.docker.properties"
+            - "ONTOP_ONTOLOGY_FILE=/opt/ontop/input/pizza-full.owl"
+            - "ONTOP_MAPPING_FILE=/opt/ontop/input/pizza-full.obda"
+            - "ONTOP_PROPERTIES_FILE=/opt/ontop/input/pizza-full.properties"
         ports:
-            - "8080:8080"
-        volumes:  # Change the paths to swith between "h2" or "spark" as database servers
-            - "./ontop-endpoint/input/h2:/opt/ontop/input"
-            - "./ontop-endpoint/jdbc/h2:/opt/ontop/jdbc"
+           - "8080:8080"
+        volumes:
+           - "./ontop-endpoint/input/spark:/opt/ontop/input" # SPARK
+    #       - "./ontop-endpoint/input/h2:/opt/ontop/input" # H2
+           - "./ontop-endpoint/jdbc:/opt/ontop/jdbc"
+        restart: unless-stopped
     jena-fuseki:
         hostname: jena-fuseki
         container_name: jena-fuseki

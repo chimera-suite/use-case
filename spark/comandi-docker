@@ -1,0 +1,5 @@
+sudo docker build -t spark .
+
+sudo docker run -it --rm --name spark -h spark  -p 8050:8050 -p 10000:10000 spark
+
+
