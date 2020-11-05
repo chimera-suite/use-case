@@ -14,15 +14,15 @@ terms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
 mappingId	pizza-FourSeasons
-target		:{pizzaID} a :FourSeasons ; rdfs:label {menuName}@en ; :menuNumber {menuNumber}^^xsd:integer .
+target		:{pizzaID} a :FourSeasons ; rdfs:label {menuName}@en ; :menuNumber {menuNumber} .
 source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'FourSeasons';
 
 mappingId	pizza-Margherita
-target		:{pizzaID} a :Margherita ; rdfs:label {menuName}@en ; :menuNumber {menuNumber}^^xsd:integer .
+target		:{pizzaID} a :Margherita ; rdfs:label {menuName}@en ; :menuNumber {menuNumber} .
 source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'Margherita';
 
 mappingId	pizza-Veneziana
-target		:{pizzaID} a :Veneziana ; rdfs:label {menuName}@en ; :menuNumber {menuNumber}^^xsd:integer .
+target		:{pizzaID} a :Veneziana ; rdfs:label {menuName}@en ; :menuNumber {menuNumber} .
 source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'Veneziana';
 
 mappingId	pizza-Pizza(General)
@@ -30,19 +30,19 @@ target		:{pizzaID} a :Pizza ; rdfs:label {menuName}@en .
 source		SELECT * FROM pizzaDB.pizza;
 
 mappingId	measures
-target		:{pizzaID} :hasSensorMeasure :{measureID} . :{measureID} a :SensorMeasure ; :value {value}^^xsd:decimal ; :capturedAt {timestamp}^^xsd:dateTime ; :detectedBy :{sensorID} . 
+target		:{pizzaID} :hasSensorMeasure :{measureID} . :{measureID} a :SensorMeasure ; :value {value} ; :capturedAt {timestamp} ; :detectedBy :{sensorID} . 
 source		SELECT * FROM pizzaDB.measures;
 
 mappingId	sensor-TemperatureSensor
-target		:{sensorID} a :TemperatureSensor ; :isEnabled {enabled}^^xsd:boolean ; :installationDate {installationDate}^^xsd:date .
+target		:{sensorID} a :TemperatureSensor ; :isEnabled {enabled} ; :installationDate {installationDate} .
 source		SELECT * FROM pizzaDB.sensor WHERE  measureType = 'TEMPERATURE';
 
 mappingId	sensor-HumiditySensor
-target		:{sensorID} a :HumiditySensor ; :isEnabled {enabled}^^xsd:boolean ; :installationDate {installationDate}^^xsd:date .
+target		:{sensorID} a :HumiditySensor ; :isEnabled {enabled} ; :installationDate {installationDate} .
 source		SELECT * FROM pizzaDB.sensor WHERE  measureType = 'HUMIDITY';
 
 mappingId	sensor-CO2Sensor
-target		:{sensorID} a :CO2Sensor ; :isEnabled {enabled}^^xsd:boolean ; :installationDate {installationDate}^^xsd:date .
+target		:{sensorID} a :CO2Sensor ; :isEnabled {enabled} ; :installationDate {installationDate} .
 source		SELECT * FROM pizzaDB.sensor WHERE  measureType = 'CO2';
 ]]
 
