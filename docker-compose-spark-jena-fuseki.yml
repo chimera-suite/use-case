@@ -1,0 +1,24 @@
+version: "3"
+services:
+    spark:
+        hostname: spark
+        container_name: spark
+        image: "spark"
+        ports:
+            - "8050:8050"  # Spark master
+            - "8051:8051"  # Spark worker
+            - "7078:7078"
+            - "10000:10000"  # ThriftSerevr JDBC endpoint
+
+    jena-fuseki:
+        hostname: jena-fuseki
+        container_name: jena-fuseki
+        image: stain/jena-fuseki
+        environment: 
+             - "ADMIN_PASSWORD=admin"
+        ports:
+            - "3030:3030"
+            
+networks:
+    default:
+        name: pizza-network

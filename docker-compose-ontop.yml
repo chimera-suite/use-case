@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+    ontop:
+        hostname: ontop
+        container_name: ontop
+        image: chimerasuite/ontop:fd38fec7a0
+        environment: 
+            - "ONTOP_ONTOLOGY_FILE=/opt/ontop/input/pizza-full.owl"
+            - "ONTOP_MAPPING_FILE=/opt/ontop/input/pizza-full.obda"
+            - "ONTOP_PROPERTIES_FILE=/opt/ontop/input/pizza-full.properties"
+        ports:
+           - "8080:8080"
+        volumes:
+           - "./ontop-endpoint/input/spark:/opt/ontop/input"
+           - "./ontop-endpoint/jdbc:/opt/ontop/jdbc"
+     
+    jena-fuseki:
+        hostname: jena-fuseki
+        container_name: jena-fuseki
+        image: stain/jena-fuseki
+        environment: 
+             - "ADMIN_PASSWORD=admin"
+        ports:
+            - "3030:3030"
+ 
+networks:
+    default:
+        external:
+            name: pizza-network
