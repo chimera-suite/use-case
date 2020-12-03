@@ -4,8 +4,9 @@
 Comment/uncomment the file docker-compose.yml to run either the h2 or spark configuration
 
 ```console
-foo@bar:~$ sudo ./docker-build.sh
-foo@bar:~$ sudo docker-compose up
+foo@bar:~$ sudo ./spark-build.sh
+foo@bar:~$ sudo docker-compose -f docker-compose-spark-jena-fuseki.yml up
+foo@bar:~$ sudo docker-compose -f docker-compose-ontop.yml up
 ```
 
 ## QUERY EXAMPLE (localhost:3030  admin:admin)
