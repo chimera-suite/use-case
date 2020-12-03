@@ -11,7 +11,7 @@ services:
         ports:
            - "8080:8080"
         volumes:
-           - "./ontop-endpoint/input/spark:/opt/ontop/input"
+           - "./ontop-endpoint/input:/opt/ontop/input"
            - "./ontop-endpoint/jdbc:/opt/ontop/jdbc"
  
 networks:
