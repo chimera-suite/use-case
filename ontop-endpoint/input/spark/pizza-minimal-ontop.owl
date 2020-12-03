@@ -1,0 +1,546 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
+     xml:base="http://www.co-ode.org/ontologies/pizza/pizza.owl"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:obda="https://w3id.org/obda/vocabulary#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:pizza="http://www.co-ode.org/ontologies/pizza/"
+     xmlns:terms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="http://www.co-ode.org/ontologies/pizza">
+        <owl:versionIRI rdf:resource="http://www.co-ode.org/ontologies/pizza/2.0.0"/>
+        <dc:description xml:lang="en">An ontology about pizzas and their toppings.
+
+This is an example ontology that contains all constructs required for the various versions of the Pizza Tutorial run by Manchester University (see http://owl.cs.manchester.ac.uk/publications/talks-and-tutorials/protg-owl-tutorial).</dc:description>
+        <dc:title xml:lang="en">pizza</dc:title>
+        <terms:contributor>Alan Rector</terms:contributor>
+        <terms:contributor>Chris Wroe</terms:contributor>
+        <terms:contributor>Matthew Horridge</terms:contributor>
+        <terms:contributor>Nick Drummond</terms:contributor>
+        <terms:contributor>Robert Stevens</terms:contributor>
+        <terms:license rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Creative Commons Attribution 3.0 (CC BY 3.0)</terms:license>
+        <terms:provenance xml:lang="en">v2.0 Added new annotations to the ontology using standard/well-know annotation properties
+
+v1.5. Removed protege.owl import and references. Made ontology URI date-independent
+
+v1.4. Added Food class (used in domain/range of hasIngredient), Added several hasCountryOfOrigin restrictions on pizzas, Made hasTopping invers functional</terms:provenance>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pizza</rdfs:label>
+        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/description -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/description"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/title -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/title"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/contributor -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/contributor"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/license -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/license"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/provenance -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/provenance"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#altLabel -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#altLabel"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#definition -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#definition"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#prefLabel -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#temperature -->
+
+    <owl:DatatypeProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#temperature">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#American -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#American">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">American</rdfs:label>
+        <rdfs:label xml:lang="pt">Americana</rdfs:label>
+        <skos:altLabel xml:lang="en">American</skos:altLabel>
+        <skos:altLabel xml:lang="en">American Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">American</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#AmericanHot -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#AmericanHot">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">AmericanHot</rdfs:label>
+        <rdfs:label xml:lang="pt">AmericanaPicante</rdfs:label>
+        <skos:altLabel xml:lang="en">American Hot</skos:altLabel>
+        <skos:altLabel xml:lang="en">American Hot Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">American Hot</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Cajun -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Cajun">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Cajun</rdfs:label>
+        <rdfs:label xml:lang="pt">Cajun</rdfs:label>
+        <skos:altLabel xml:lang="en">Cajun</skos:altLabel>
+        <skos:altLabel xml:lang="en">Cajun Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Cajun</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Capricciosa -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Capricciosa">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Capricciosa</rdfs:label>
+        <rdfs:label xml:lang="pt">Capricciosa</rdfs:label>
+        <skos:altLabel xml:lang="en">Capricciosa</skos:altLabel>
+        <skos:altLabel xml:lang="en">Capricciosa Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Capricciosa</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Caprina -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Caprina">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Caprina</rdfs:label>
+        <rdfs:label xml:lang="pt">Caprina</rdfs:label>
+        <skos:altLabel xml:lang="en">Caprina</skos:altLabel>
+        <skos:altLabel xml:lang="en">Caprina Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Caprina</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept">
+        <rdfs:label xml:lang="en">DomainThing</rdfs:label>
+        <skos:prefLabel xml:lang="en">Domain Thing</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Fiorentina -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Fiorentina">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Fiorentina</rdfs:label>
+        <rdfs:label xml:lang="pt">Fiorentina</rdfs:label>
+        <skos:altLabel xml:lang="en">Fiorentina</skos:altLabel>
+        <skos:altLabel xml:lang="en">Fiorentina Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Fiorentina</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Food -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Food">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept"/>
+        <rdfs:label xml:lang="en">Food</rdfs:label>
+        <skos:prefLabel xml:lang="en">Food</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#FourSeasons -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#FourSeasons">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">FourSeasons</rdfs:label>
+        <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
+        <skos:altLabel xml:lang="en">Four Seasons</skos:altLabel>
+        <skos:altLabel xml:lang="en">Four Seasons Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Four Seasons</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#FruttiDiMare -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#FruttiDiMare">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="pt">FrutosDoMar</rdfs:label>
+        <rdfs:label xml:lang="en">FruttiDiMare</rdfs:label>
+        <skos:altLabel xml:lang="en">Frutti Di Mare</skos:altLabel>
+        <skos:altLabel xml:lang="en">Frutti Di Mare Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Frutti Di Mare</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Giardiniera -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Giardiniera">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Giardiniera</rdfs:label>
+        <rdfs:label xml:lang="pt">Giardiniera</rdfs:label>
+        <skos:altLabel xml:lang="en">Giardiniera</skos:altLabel>
+        <skos:altLabel xml:lang="en">Giardiniera Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Giardiniera</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#LaReine -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#LaReine">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">LaReine</rdfs:label>
+        <rdfs:label xml:lang="pt">LaReine</rdfs:label>
+        <skos:altLabel xml:lang="en">La Reine</skos:altLabel>
+        <skos:altLabel xml:lang="en">La Reine Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">La Reine</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Margherita -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Margherita">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Margherita</rdfs:label>
+        <rdfs:label xml:lang="pt">Margherita</rdfs:label>
+        <skos:altLabel xml:lang="en">Margherita</skos:altLabel>
+        <skos:altLabel xml:lang="en">Margherita Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Margherita</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Mushroom -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Mushroom">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="pt">Cogumelo</rdfs:label>
+        <rdfs:label xml:lang="en">Mushroom</rdfs:label>
+        <skos:altLabel xml:lang="en">Mushroom</skos:altLabel>
+        <skos:altLabel xml:lang="en">Mushroom Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Mushroom</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza"/>
+        <rdfs:comment xml:lang="en">A pizza that can be found on a pizza menu</rdfs:comment>
+        <rdfs:label xml:lang="pt">PizzaComUmNome</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Napoletana -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Napoletana">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Napoletana</rdfs:label>
+        <rdfs:label xml:lang="pt">Napoletana</rdfs:label>
+        <skos:altLabel xml:lang="en">Napoletana</skos:altLabel>
+        <skos:altLabel xml:lang="en">Napoletana Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Napoletana</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Parmense -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Parmense">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Parmense</rdfs:label>
+        <rdfs:label xml:lang="pt">Parmense</rdfs:label>
+        <skos:altLabel xml:lang="en">Parmese</skos:altLabel>
+        <skos:altLabel xml:lang="en">Parmese Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Parmense</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Food"/>
+        <rdfs:label xml:lang="en">Pizza</rdfs:label>
+        <rdfs:seeAlso rdf:resource="https://en.wikipedia.org/wiki/Pizza"/>
+        <skos:prefLabel xml:lang="en">Pizza</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#PolloAdAstra -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#PolloAdAstra">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">PolloAdAstra</rdfs:label>
+        <rdfs:label xml:lang="pt">PolloAdAstra</rdfs:label>
+        <skos:altLabel xml:lang="en">Pollo Ad Astra</skos:altLabel>
+        <skos:altLabel xml:lang="en">Pollo Ad Astra Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Pollo Ad Astra</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#PrinceCarlo -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#PrinceCarlo">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="pt">CoberturaPrinceCarlo</rdfs:label>
+        <rdfs:label xml:lang="en">PrinceCarlo</rdfs:label>
+        <skos:altLabel xml:lang="en">Prince Carlo</skos:altLabel>
+        <skos:altLabel xml:lang="en">Prince Carlo Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Prince Carlo</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#QuattroFormaggi -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#QuattroFormaggi">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
+        <rdfs:label xml:lang="en">QuattroFormaggi</rdfs:label>
+        <skos:altLabel xml:lang="en">Quattro Formaggi</skos:altLabel>
+        <skos:altLabel xml:lang="en">Quattro Formaggi Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Quattro Formaggi</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Rosa -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Rosa">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Rosa</rdfs:label>
+        <rdfs:label xml:lang="pt">Rosa</rdfs:label>
+        <skos:altLabel xml:lang="en">Rosa</skos:altLabel>
+        <skos:altLabel xml:lang="en">Rosa Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Rosa</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Siciliana</rdfs:label>
+        <rdfs:label xml:lang="pt">Siciliana</rdfs:label>
+        <skos:altLabel xml:lang="en">Siciliana</skos:altLabel>
+        <skos:altLabel xml:lang="en">Siciliana Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Siciliana</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#SloppyGiuseppe -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#SloppyGiuseppe">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">SloppyGiuseppe</rdfs:label>
+        <rdfs:label xml:lang="pt">SloppyGiuseppe</rdfs:label>
+        <skos:altLabel xml:lang="en">Sloppy Giuseppe</skos:altLabel>
+        <skos:altLabel xml:lang="en">Sloppy Giuseppe Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Sloppy Giuseppe</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Soho -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Soho">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Soho</rdfs:label>
+        <rdfs:label xml:lang="pt">Soho</rdfs:label>
+        <skos:altLabel xml:lang="en">Soho</skos:altLabel>
+        <skos:altLabel xml:lang="en">Soho Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Soho</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Veneziana -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Veneziana">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza"/>
+        <rdfs:label xml:lang="en">Veneziana</rdfs:label>
+        <rdfs:label xml:lang="pt">Veneziana</rdfs:label>
+        <skos:altLabel xml:lang="en">Veneziana</skos:altLabel>
+        <skos:altLabel xml:lang="en">Veneziana Pizza</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Veneziana</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#America -->
+
+    <owl:Thing rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#America">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#England -->
+
+    <owl:Thing rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#England">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#France -->
+
+    <owl:Thing rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#France">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Germany -->
+
+    <owl:Thing rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Germany">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#Italy -->
+
+    <owl:Thing rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Italy">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#America"/>
+            <rdf:Description rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#England"/>
+            <rdf:Description rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#France"/>
+            <rdf:Description rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Germany"/>
+            <rdf:Description rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#Italy"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

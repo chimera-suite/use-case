@@ -5,9 +5,9 @@ services:
         container_name: ontop
         image: chimerasuite/ontop:fd38fec7a0
         environment: 
-            - "ONTOP_ONTOLOGY_FILE=/opt/ontop/input/pizza-full.owl"
-            - "ONTOP_MAPPING_FILE=/opt/ontop/input/pizza-full.obda"
-            - "ONTOP_PROPERTIES_FILE=/opt/ontop/input/pizza-full.properties"
+            - "ONTOP_ONTOLOGY_FILE=/opt/ontop/input/pizza-minimal-ontop.owl"
+            - "ONTOP_MAPPING_FILE=/opt/ontop/input/pizza-minimal-ontop.obda"
+            - "ONTOP_PROPERTIES_FILE=/opt/ontop/input/pizza-minimal-ontop.properties"
         ports:
            - "8080:8080"
         volumes:
