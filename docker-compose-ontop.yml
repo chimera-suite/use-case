@@ -13,15 +13,6 @@ services:
         volumes:
            - "./ontop-endpoint/input/spark:/opt/ontop/input"
            - "./ontop-endpoint/jdbc:/opt/ontop/jdbc"
-     
-    jena-fuseki:
-        hostname: jena-fuseki
-        container_name: jena-fuseki
-        image: stain/jena-fuseki
-        environment: 
-             - "ADMIN_PASSWORD=admin"
-        ports:
-            - "3030:3030"
  
 networks:
     default:
