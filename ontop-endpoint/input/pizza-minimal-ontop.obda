@@ -21,16 +21,16 @@ mappingId	pizza-Margherita
 target		:{pizzaID} a :Margherita ; rdfs:label {menuName}@en . 
 source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'Margherita';
 
-mappingId	pizza-Veneziana
-target		:{pizzaID} a :Veneziana ; rdfs:label {menuName}@en . 
-source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'Veneziana';
-
 mappingId	pizza-Pizza(General)
 target		:{pizzaID} a :Pizza ; rdfs:label {menuName}@en . 
 source		SELECT * FROM pizzaDB.pizza;
 
-mappingId	measures
-target		:{pizzaID} :temperature {temperature}^^xsd:decimal . 
-source		SELECT pizzaID, AVG(value) AS temperature FROM pizzaDB.measures GROUP BY pizzaID
+mappingId	temperature-restaurant1
+target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_1" . 
+source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1 GROUP BY pizzaID) AS subview1
+
+mappingId	temperature-restaurant2
+target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_2" . 
+source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant2 GROUP BY pizzaID) AS subview2
 ]]
 
