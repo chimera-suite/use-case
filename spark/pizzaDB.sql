@@ -3,18 +3,18 @@ DROP DATABASE IF EXISTS pizzaDB CASCADE;
 CREATE DATABASE IF NOT EXISTS pizzaDB;
                           
 CREATE TABLE pizzaDB.pizza (
-           pizzaID STRING NOT NULL,
-           menuName STRING NOT NULL);
+           pizzaID STRING,
+           menuName STRING);
 
 CREATE TABLE pizzaDB.restaurant1 (
-           pizzaID STRING NOT NULL,
-           temp DECIMAL(4,1) NOT NULL,
-           timestamp TIMESTAMP NOT NULL);
+           pizzaID STRING,
+           temp DECIMAL(4,1),
+           timestamp TIMESTAMP);
            
 CREATE TABLE pizzaDB.restaurant2 (
-           pizzaID STRING NOT NULL,
-           temp DECIMAL(4,1) NOT NULL,
-           timestamp TIMESTAMP NOT NULL);
+           pizzaID STRING,
+           temp DECIMAL(4,1),
+           timestamp TIMESTAMP);
 
 INSERT INTO pizzaDB.pizza
 VALUES ('PZ123','Margherita'),('PZ456','Margherita'),('PZ789','FourSeasons'),('PZ111','Margherita'),('PZ222','Margherita'),('PZ333','FourSeasons');
