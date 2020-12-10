@@ -1,20 +1,20 @@
 version: "3.8"
 services:
-    ontop:
-        hostname: ontop
-        container_name: ontop
-        image: chimerasuite/ontop:fd38fec7a0
-        environment: 
-            - "ONTOP_ONTOLOGY_FILE=/opt/ontop/input/pizza-minimal-ontop.owl"
-            - "ONTOP_MAPPING_FILE=/opt/ontop/input/pizza-minimal-ontop.obda"
-            - "ONTOP_PROPERTIES_FILE=/opt/ontop/input/pizza-minimal-ontop.properties"
-        ports:
-           - "8080:8080"
-        volumes:
-           - "./ontop-endpoint/input:/opt/ontop/input"
-           - "./ontop-endpoint/jdbc:/opt/ontop/jdbc"
+  ontop:
+    hostname: ontop
+    container_name: ontop
+    image: chimerasuite/ontop:fd38fec7a0
+    environment: 
+      - "ONTOP_ONTOLOGY_FILE=/opt/ontop/input/pizza-minimal-ontop.owl"
+      - "ONTOP_MAPPING_FILE=/opt/ontop/input/pizza-minimal-ontop.obda"
+      - "ONTOP_PROPERTIES_FILE=/opt/ontop/input/pizza-minimal-ontop.properties"
+    ports:
+      - "8090:8080"
+    volumes:
+      - "./ontop/input:/opt/ontop/input"
+      - "./ontop/jdbc:/opt/ontop/jdbc"
  
 networks:
-    default:
-        external:
-            name: pizza-network
+  default:
+    external:
+      name: qwerty

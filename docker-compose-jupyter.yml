@@ -1,0 +1,13 @@
+version: "3"
+services:
+  jupyter:
+    image: jupyter/pyspark-notebook:latest
+    hostname: jupyter
+    container_name: jupyter
+    ports:
+      - "8888:8888"
+
+networks: 
+  default:
+    external: 
+      name: qwerty
