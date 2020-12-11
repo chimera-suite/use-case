@@ -32,5 +32,13 @@ source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,
 mappingId	temperature-restaurant2
 target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_2" . 
 source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant2 GROUP BY pizzaID) AS subview2
+
+mappingId	temperature-goodPizza
+target		:{pizzaID} a :GoodPizza .
+source		SELECT pizzaID FROM pizzaDB.analysis WHERE outcome = 'WELL_COOKED';
+
+mappingId	temperature-anomalousPizza
+target		:{pizzaID} a :AnomalousPizza .
+source		SELECT pizzaID FROM pizzaDB.analysis WHERE outcome = 'ANOMALY';
 ]]
 

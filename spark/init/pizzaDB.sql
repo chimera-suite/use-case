@@ -16,6 +16,10 @@ CREATE TABLE pizzaDB.restaurant2 (
            temp DECIMAL(4,1),
            timestamp TIMESTAMP);
 
+CREATE TABLE pizzaDB.analysis (
+           pizzaID STRING,
+           outcome STRING);
+
 INSERT INTO pizzaDB.pizza
 VALUES ('PZ123','Margherita'),('PZ456','Margherita'),('PZ789','FourSeasons'),('PZ111','Margherita'),('PZ222','Margherita'),('PZ333','FourSeasons');
 
