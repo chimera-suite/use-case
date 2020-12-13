@@ -27,7 +27,11 @@ source		SELECT * FROM pizzaDB.pizza;
 
 mappingId	temperature-restaurant1
 target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_1" . 
-source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1 GROUP BY pizzaID) AS subview1
+source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1and3 WHERE restaurantID = 1 GROUP BY pizzaID) AS subview1
+
+mappingId	temperature-restaurant3
+target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_3" . 
+source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1and3 WHERE restaurantID = 3 GROUP BY pizzaID) AS subview3
 
 mappingId	temperature-restaurant2
 target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_2" . 
