@@ -2,26 +2,26 @@ DROP DATABASE IF EXISTS pizzaDB CASCADE;
 
 CREATE DATABASE IF NOT EXISTS pizzaDB;
                           
-CREATE TABLE pizzaDB.pizza (
-           pizzaID STRING,
+CREATE TABLE pizzaDB.food (
+           foodID STRING,
            menuName STRING);
 
 CREATE TABLE pizzaDB.restaurant1and3 (
-	   restaurantID INTEGER,
-           pizzaID STRING,
+           restaurantID INTEGER,
+           foodID STRING,
            temp DECIMAL(4,1),
            timestamp TIMESTAMP);
            
 CREATE TABLE pizzaDB.restaurant2 (
-           pizzaID STRING,
+           foodID STRING,
            temp DECIMAL(4,1),
            timestamp TIMESTAMP);
 
 CREATE TABLE pizzaDB.analysis (
-           pizzaID STRING,
+           foodID STRING,
            outcome STRING);
 
-INSERT INTO pizzaDB.pizza
+INSERT INTO pizzaDB.food
 VALUES ('PZ123','Margherita'),
        ('PZ456','Margherita'),
        ('PZ789','FourSeasons'),
@@ -38,7 +38,9 @@ VALUES ('PZ123','Margherita'),
        ('PZ666','Margherita'),
        ('PZ777','Margherita'),
        ('PZ888','Margherita'),
-       ('PZ999','Margherita');
+       ('PZ999','Margherita'),
+       ('DES1','Cake'),
+       ('DES2','Cake');
 
 INSERT INTO pizzaDB.restaurant1and3
 VALUES (1,'PZ123',250.5,CAST('2020-12-05 16:24:46.15' AS Timestamp)),
@@ -112,4 +114,12 @@ VALUES ('PZ111',290.5,CAST('2020-12-05 16:24:46.15' AS Timestamp)),
        ('PZ999',292.3,CAST('2020-12-05 19:40:26.15' AS Timestamp)),
        ('PZ999',289.2,CAST('2020-12-05 19:41:26.15' AS Timestamp)),
        ('PZ999',298.9,CAST('2020-12-05 19:42:26.15' AS Timestamp)),
-       ('PZ999',285.5,CAST('2020-12-05 19:43:26.15' AS Timestamp));
+       ('PZ999',285.5,CAST('2020-12-05 19:43:26.15' AS Timestamp)),
+       ('DES1',200.5,CAST('2020-12-05 19:00:26.15' AS Timestamp)),
+       ('DES1',210.5,CAST('2020-12-05 19:15:26.15' AS Timestamp)),
+       ('DES1',208.5,CAST('2020-12-05 19:45:26.15' AS Timestamp)),
+       ('DES1',205.5,CAST('2020-12-05 19:55:26.15' AS Timestamp)),
+       ('DES2',198.5,CAST('2020-12-05 19:00:26.15' AS Timestamp)),
+       ('DES2',205.5,CAST('2020-12-05 19:15:26.15' AS Timestamp));
+       
+
