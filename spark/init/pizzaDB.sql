@@ -2,45 +2,43 @@ DROP DATABASE IF EXISTS pizzaDB CASCADE;
 
 CREATE DATABASE IF NOT EXISTS pizzaDB;
                           
-CREATE TABLE pizzaDB.food (
-           foodID STRING,
+CREATE TABLE pizzaDB.pizza (
+           pizzaID STRING,
            menuName STRING);
 
 CREATE TABLE pizzaDB.restaurant1and3 (
-           restaurantID INTEGER,
-           foodID STRING,
+	   restaurantID INTEGER,
+           pizzaID STRING,
            temp DECIMAL(4,1),
            timestamp TIMESTAMP);
            
 CREATE TABLE pizzaDB.restaurant2 (
-           foodID STRING,
+           pizzaID STRING,
            temp DECIMAL(4,1),
            timestamp TIMESTAMP);
 
 CREATE TABLE pizzaDB.analysis (
-           foodID STRING,
+           pizzaID STRING,
            outcome STRING);
 
-INSERT INTO pizzaDB.food
+INSERT INTO pizzaDB.pizza
 VALUES ('PZ123','Margherita'),
        ('PZ456','Margherita'),
-       ('PZ789','FourSeasons'),
+       ('PZ789','American'),
        ('PZ001','Margherita'),
        ('PZ002','Margherita'),
        ('PZ003','Margherita'),
        ('PZ004','Margherita'),
        ('PZ005','Margherita'),
        ('PZ111','Margherita'),
-       ('PZ222','Margherita'),
-       ('PZ333','FourSeasons'),
+       ('PZ222','American'),
+       ('PZ333','American'),
        ('PZ444','Margherita'),
        ('PZ555','Margherita'),
-       ('PZ666','Margherita'),
-       ('PZ777','Margherita'),
+       ('PZ666','QuattroFormaggi'),
+       ('PZ777','QuattroFormaggi'),
        ('PZ888','Margherita'),
-       ('PZ999','Margherita'),
-       ('DES1','Cake'),
-       ('DES2','Cake');
+       ('PZ999','Margherita');
 
 INSERT INTO pizzaDB.restaurant1and3
 VALUES (1,'PZ123',250.5,CAST('2020-12-05 16:24:46.15' AS Timestamp)),
@@ -114,12 +112,4 @@ VALUES ('PZ111',290.5,CAST('2020-12-05 16:24:46.15' AS Timestamp)),
        ('PZ999',292.3,CAST('2020-12-05 19:40:26.15' AS Timestamp)),
        ('PZ999',289.2,CAST('2020-12-05 19:41:26.15' AS Timestamp)),
        ('PZ999',298.9,CAST('2020-12-05 19:42:26.15' AS Timestamp)),
-       ('PZ999',285.5,CAST('2020-12-05 19:43:26.15' AS Timestamp)),
-       ('DES1',200.5,CAST('2020-12-05 19:00:26.15' AS Timestamp)),
-       ('DES1',210.5,CAST('2020-12-05 19:15:26.15' AS Timestamp)),
-       ('DES1',208.5,CAST('2020-12-05 19:45:26.15' AS Timestamp)),
-       ('DES1',205.5,CAST('2020-12-05 19:55:26.15' AS Timestamp)),
-       ('DES2',198.5,CAST('2020-12-05 19:00:26.15' AS Timestamp)),
-       ('DES2',205.5,CAST('2020-12-05 19:15:26.15' AS Timestamp));
-       
-
+       ('PZ999',285.5,CAST('2020-12-05 19:43:26.15' AS Timestamp));

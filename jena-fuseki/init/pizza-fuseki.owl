@@ -357,10 +357,10 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     
 
 
-    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#AnomalousFood -->
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#AnomalousPizza -->
 
-    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#AnomalousFood">
-        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Food"/>
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#AnomalousPizza">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#QAPizza"/>
     </owl:Class>
     
 
@@ -928,8 +928,6 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
                 </owl:allValuesFrom>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <pizza:suggestedCookingDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#duration">PT3M20S</pizza:suggestedCookingDuration>
-        <pizza:suggestedCookingTemp rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">280.5</pizza:suggestedCookingTemp>
         <rdfs:label xml:lang="en">FourSeasons</rdfs:label>
         <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
         <skos:altLabel xml:lang="en">Four Seasons</skos:altLabel>
@@ -1109,10 +1107,10 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
     
 
 
-    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#GoodFood -->
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#GoodPizza -->
 
-    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#GoodFood">
-        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Food"/>
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#GoodPizza">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#QAPizza"/>
     </owl:Class>
     
 
@@ -1374,8 +1372,6 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
                 </owl:allValuesFrom>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <pizza:suggestedCookingDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#duration">PT3M</pizza:suggestedCookingDuration>
-        <pizza:suggestedCookingTemp rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">290.0</pizza:suggestedCookingTemp>
         <rdfs:label xml:lang="en">Margherita</rdfs:label>
         <rdfs:label xml:lang="pt">Margherita</rdfs:label>
         <skos:altLabel xml:lang="en">Margherita</skos:altLabel>
@@ -1860,6 +1856,8 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
                 <owl:someValuesFrom rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <pizza:suggestedCookingDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#duration">PT3M</pizza:suggestedCookingDuration>
+        <pizza:suggestedCookingTemp rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">290.0</pizza:suggestedCookingTemp>
         <rdfs:label xml:lang="en">Pizza</rdfs:label>
         <rdfs:seeAlso rdf:resource="https://en.wikipedia.org/wiki/Pizza"/>
         <skos:prefLabel xml:lang="en">Pizza</skos:prefLabel>
@@ -2028,6 +2026,14 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
         <skos:altLabel xml:lang="en">Prince Carlo</skos:altLabel>
         <skos:altLabel xml:lang="en">Prince Carlo Pizza</skos:altLabel>
         <skos:prefLabel xml:lang="en">Prince Carlo</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#QAPizza -->
+
+    <owl:Class rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#QAPizza">
+        <rdfs:subClassOf rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza"/>
     </owl:Class>
     
 
@@ -2450,6 +2456,8 @@ v1.4. Added Food class (used in domain/range of hasIngredient), Added several ha
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
+        <pizza:suggestedCookingDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#duration">PT3M20S</pizza:suggestedCookingDuration>
+        <pizza:suggestedCookingTemp rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.0</pizza:suggestedCookingTemp>
         <rdfs:label xml:lang="pt">PizzaTemperada</rdfs:label>
         <rdfs:label xml:lang="en">SpicyPizza</rdfs:label>
         <skos:definition xml:lang="en">Any pizza that has a spicy topping is a SpicyPizza</skos:definition>

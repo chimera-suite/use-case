@@ -13,36 +13,40 @@ pizza:		http://www.co-ode.org/ontologies/pizza/
 terms:		http://purl.org/dc/terms/
 
 [MappingDeclaration] @collection [[
-mappingId	pizza-FourSeasons
-target		:{foodID} a :FourSeasons . 
-source		SELECT * FROM pizzaDB.food WHERE  menuName = 'FourSeasons';
+mappingId	pizza-American
+target		:{pizzaID} a :American ; rdfs:label {menuName}@en . 
+source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'American';
+
+mappingId	pizza-QuattroFormaggi
+target		:{pizzaID} a :QuattroFormaggi ; rdfs:label {menuName}@en . 
+source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'QuattroFormaggi';
 
 mappingId	pizza-Margherita
-target		:{foodID} a :Margherita . 
-source		SELECT * FROM pizzaDB.food WHERE  menuName = 'Margherita';
+target		:{pizzaID} a :Margherita ; rdfs:label {menuName}@en . 
+source		SELECT * FROM pizzaDB.pizza WHERE  menuName = 'Margherita';
+
+mappingId	pizza-Pizza(General)
+target		:{pizzaID} a :Pizza ; rdfs:label {menuName}@en . 
+source		SELECT * FROM pizzaDB.pizza;
 
 mappingId	temperature-restaurant1
-target		:{foodID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_1" . 
-source		SELECT foodID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT foodID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1and3 WHERE restaurantID = 1 GROUP BY foodID) AS subview1
+target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_1" . 
+source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1and3 WHERE restaurantID = 1 GROUP BY pizzaID) AS subview1
 
 mappingId	temperature-restaurant3
-target		:{foodID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_3" . 
-source		SELECT foodID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT foodID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1and3 WHERE restaurantID = 3 GROUP BY foodID) AS subview3
+target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_3" . 
+source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant1and3 WHERE restaurantID = 3 GROUP BY pizzaID) AS subview3
 
 mappingId	temperature-restaurant2
-target		:{foodID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_2" . 
-source		SELECT foodID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT foodID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant2 GROUP BY foodID) AS subview2
+target		:{pizzaID} :temperature {temp}^^xsd:decimal ; :start_cooking {cook_start}^^xsd:dateTime ; :end_cooking {cook_end}^^xsd:dateTime ; :restaurant "RESTAURANT_2" . 
+source		SELECT pizzaID, temp, REPLACE(minT,' ','T') AS cook_start, REPLACE(maxT,' ','T') AS cook_end FROM (SELECT pizzaID, AVG(temp) AS temp, MIN(timestamp) AS minT, MAX(timestamp) AS maxT FROM pizzaDB.restaurant2 GROUP BY pizzaID) AS subview2
 
-mappingId	foodquality-good
-target		:{foodID} a :GoodFood . 
-source		SELECT foodID FROM pizzaDB.analysis WHERE outcome = 'WELL_COOKED';
+mappingId	temperature-goodPizza
+target		:{pizzaID} a :GoodPizza . 
+source		SELECT pizzaID FROM pizzaDB.analysis WHERE outcome = 'WELL_COOKED';
 
-mappingId	foodquality-anomalous
-target		:{foodID} a :AnomalousFood . 
-source		SELECT foodID FROM pizzaDB.analysis WHERE outcome = 'ANOMALY';
-
-mappingId	dessert-Cake
-target		:{foodID} a :Cake . 
-source		SELECT * FROM pizzaDB.food WHERE  menuName = 'Cake';
+mappingId	temperature-anomalousPizza
+target		:{pizzaID} a :AnomalousPizza . 
+source		SELECT pizzaID FROM pizzaDB.analysis WHERE outcome = 'ANOMALY';
 ]]
 
