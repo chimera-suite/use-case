@@ -1,28 +1,15 @@
 version: "3"
 services:
   
-  jena-fuseki:
-    image: secoresearch/fuseki
-    hostname: jena-fuseki
-    container_name: jena-fuseki
-    ports:
-      - 3030:3030
-    environment: 
-      - ADMIN_PASSWORD=admin
-      - ENABLE_DATA_WRITE=true
-      - ENABLE_UPDATE=true
-      - ENABLE_UPLOAD=true
-      - QUERY_TIMEOUT=500000
-
-  jena-fuseki-sidecar-setup:
-    image: chimerasuite/jena-fuseki-sidecar-setup:2d0ac9d
-    environment: 
-      - "JENA_FUSEKI=jena-fuseki:3030"
-      - "DATASET=pizzads"
-      - "USERNAME=admin"
-      - "PASSWORD=admin"
-    volumes: 
-      - "./jena-fuseki/init:/init"
+    jena-fuseki:
+        hostname: jena-fuseki
+        container_name: jena-fuseki
+        image: stain/jena-fuseki
+        environment: 
+             - "ADMIN_PASSWORD=admin"
+             - QUERY_TIMEOUT=500000
+        ports:
+            - "3030:3030"
             
 networks:
   default:
