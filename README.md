@@ -42,6 +42,8 @@ It start a Jena Fuseki container.
 Moreover, once Jena Fuseki is ready, it creates a dataset and upload the Knowledge Graph.
 You can access the Jene Fuseki web interface at [http://jena-fuseki:3030](http://localhost:3030).
 
+Moreover, once Jena Fuseki is ready, it is needed to log in with `admin:admin` and  manually load the Knowledge Graph by creating a new _in-memory dataset_ in the `MANAGE DATASETS` section, and uploding the `pizza-fuseki.owl` file located in `/jena-fuseki/init`.
+
 
 #### 5. Jupyter Notebook
 ```
@@ -86,9 +88,9 @@ Given such a requirement, the central branch's Data Scientists have decided to m
 
 ### Solution
 
-Before strating it's needed to load in Jena Fuseki the `pizza-fuseki.owl` ontology. Go to [http://jena-fuseki:3030](http://localhost:3030), and click on the __manage datasets__ button on the top bar, it is possible to create a ne new __in-memory dataset__, which has to be called `pizzads`. Then, you can upload the ontology file located in _/fuseki/init_.
+Before strating it's needed to load the Knowledge Graph in Jena Fuseki. Go to [http://jena-fuseki:3030](http://localhost:3030), and click on the `MANAGE DATASET` section on the top bar, it is possible to create a ne new _in-memory dataset_, which has to be called `pizzads`. Then, you can __upload__ the ontology file located in `/jena-fuseki/init/pizza-fuseki.owl`.
 
-Then, for runnig the example is needed to go on the Jupyter web interface. Go to [http://jupyter:8888](http://localhost:8888) click on the __upload__ button on the top right to add two notebooks : `notebook_DS.ipyml` and `notebook_BA.ipyml`
+Then, for runnig the example is needed to go on the Jupyter web interface. Go to [http://jupyter:8888](http://localhost:8888) and click on the __upload__ button on the top right to add two notebooks : `notebook_DS.ipyml` and `notebook_BA.ipyml`
 
 Let's start with `notebook_DS.ipyml`. This is the notebook that has been created by the Data Scientist team, which have the need of making an anomaly detection anlysis to decide if a pizza cooked by a restaurant is _good_ or _anomalous_. In order to perform their analysis, the have created the following __SPARQL query__.
 
