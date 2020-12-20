@@ -6,8 +6,11 @@ This repository illustrates a running example of the Chimera software suite.
 The example is composed of several docker images, that simulates the behaviour of data pipeline from the perspective of Data Scientists and business Analysts, which have the need of using semantic web technologies (SPARQL queries and Ontology Based Data Access) for performing analytical operations and data visualization tasks. In addition it is showed how to persist a Spark DataFrame in HDFS.
 ## Setup
 
-Here we briefly discuss the components. For correctly running the example is needed to run all docker images in parallel and respecting the boot order.
+Here we briefly discuss the components. For correctly running the example is needed to run all docker images in parallel and respecting the boot order. Please take in consideration that some docker images (Apache Hive and Apache Spark) needs several minutes to complete the startup. We suggest to use 5 terminal windows (one for each component), and to run all the images without the `-d` option to check the logs.
 
+For running the dockerized components is needed to have installed `docker-compose` on your local system. If you do not have it installed, please follow this [official guide](https://docs.docker.com/compose/install/).
+
+__REMARK__: The demo is described from a user's perspective. The user runs all the docker instances on his laptop and connects to every component from his browser. Consequently, all the network addresses and ports are expressed from outside the docker's virtual network.
 
 #### 1. Apache Hive
 It simulates an `hdfs` file system.
@@ -24,7 +27,7 @@ docker-compose -f docker-compose-spark.yml up -d
 It starts an Apache Spark cluster.
 and a [spark-sidecar-setup component] that, expoiting SparkSQL, executes a series of SQL statements against Hive.
 Moreover is starts an Apache Spark Thriftserver, that exposes a jdbc enpoint for SparkSQL queries.
-You can access the Apache Spark dashbaord at [http://spark-master:8080](http://localhost:8084).
+You can access the Apache Spark dashbaord at [http://localhost:8084](http://localhost:8084).
 
 #### 3. Ontop
 ```
@@ -32,7 +35,9 @@ docker-compose -f docker-compose-ontop.yml up -d
 ```
 This starts an Ontop instance.
 In particular the instance is configured to communicate with the Apache Spark Thriftserver.
-The web interface is available at [http://ontop:8080](http://localhost:8090).
+The web interface is available at [http://localhost:8090](http://localhost:8090).
+
+If the Ontop instance shuts down after a while, it may be possible that Apache Spark had encontered some problem in loading the demo tables. You can solve the issue by restarting Spark. For more detail see the [troubleshooting section](#apache-spark).
 
 #### 4. Jena Fuseki
 ```
@@ -40,19 +45,32 @@ docker-compose -f docker-compose-jena-fuseki.yml up -d
 ```
 It start a Jena Fuseki container.
 Moreover, once Jena Fuseki is ready, it creates a dataset and upload the Knowledge Graph.
-You can access the Jene Fuseki web interface at [http://jena-fuseki:3030](http://localhost:3030).
+You can access the Jene Fuseki web interface at [http://localhost:3030](http://localhost:3030).
 
 Moreover, once Jena Fuseki is ready, it is needed to log in with `admin:admin` and  manually load the Knowledge Graph by creating a new _in-memory dataset_ in the `MANAGE DATASETS` section, and uploding the `pizza-fuseki.owl` file located in `/jena-fuseki/init`.
 
 
 #### 5. Jupyter Notebook
 ```
-docker-compose -f docker-compose-jupyter.yml up -d
+docker-compose -f docker-compose-jupyter.yml up
 ```
 This is where all the magic happens.
-You can access the Jupyter web interface at [http://jupyter:8888](http://localhost:8888).
+You can access the Jupyter web interface at [http://localhost:8888](http://localhost:8888). To access credentials from are generated inside the links in the terminal's logs.
 
-Enjoy 😁
+
+## Troubleshooting
+
+### Apache Spark
+
+The sidecar docker image of Apache Spark, which is in charge of loading the demo dataset, may not loadding correctly it.
+
+You can solve the problem by stopping the `docker-compose-spark.yml` instances and restarting them using the following commands.
+
+```
+docker-compose -f docker-compose-jena-fuseki.yml down
+docker-compose -f docker-compose-jena-fuseki.yml up -d
+```
+Then, you can you can resume the setup from [section 3 (Ontop)](#3-ontop).
 
 ## Running Demo
 
