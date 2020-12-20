@@ -3,15 +3,15 @@
 
 This repository illustrates a running example of the Chimera software suite.
 
-The example is composed of several docker images, that simulates the behaviour of data pipeline from the perspective of Data Scientists and business Analysts, which have the need of using semantic web technologies (SPARQL queries and Ontology Based Data Access) to perform analytical operations and data visualization tasks. In addition it is showed how to persist a Spark DataFrame in HDFS.
+The example is composed of several docker images, that simulates the behaviour of data pipeline from the perspective of Data Scientists and Business Analysts, which need to use semantic web technologies (SPARQL queries and Ontology Based Data Access) for performing analytical operations and data visualization tasks. In addition, it is showed how to persist a Spark DataFrame in HDFS.
 
 ## Setup
 
-Here we briefly discuss the components. For correctly running the example is needed to run all docker images in parallel and respecting the boot order. Please take in consideration that some docker images (Apache Hive and Apache Spark) needs several minutes to complete the startup. We suggest to use 5 terminal windows (one for each component), and run all images without the `-d` option to be able to check the output logs.
+Here we briefly discuss the components. For correctly running the example is needed to run all docker images in parallel and to respect the boot order. Please take in consideration that some docker images (Apache Hive and Apache Spark) needs several minutes to complete the startup. We suggest to use 5 terminal windows (one for each component), and run all images without the `-d` option to be able to check the output logs.
 
 For running the dockerized components is needed to have installed `docker-compose` on your local system. If you do not have it installed, please follow this [official guide](https://docs.docker.com/compose/install/).
 
-__REMARK__: The demo is described from a user's perspective. WE assume that whoever wants to try demo runs all the docker instances on his laptop and connects to every component from his browser. Consequently, in this guide all the network addresses and ports are expressed from a perspective outside the docker's virtual network.
+__REMARK__: The demo is described from a user's perspective. We assume that whoever wants to try demo runs all the docker instances on his laptop and connects to every component using his browser. Consequently, in this guide all the network addresses and ports are expressed from an outside the docker's virtual network perspective.
 
 #### 1. Apache Hive
 It simulates an `hdfs` file system.
@@ -25,8 +25,8 @@ You can use jdbc connection to `jdbc:hive2://localhost:10000` to check the table
 docker-compose -f docker-compose-spark.yml up -d
 ```
 It starts an Apache Spark cluster.
-The `spark-sidecar` setup component that, exploiting SparkSQL, executes a series of SparkSQL statements for creating the Spark tables and performing data insertions.
-Moreover is starts an Apache Spark Thrift Server, that exposes a jdbc enpoint for SparkSQL queries.
+In particular, the `spark-sidecar` setup component executes a series of SparkSQL statements for creating the Spark tables and performing data insertions.
+Moreover it starts an Apache `Spark Thrift Server`, that exposes a JDBC enpoint for SparkSQL queries.
 You can access the Apache Spark dashbaord at [http://localhost:8084](http://localhost:8084).
 
 #### 3. OntopSpark
@@ -34,20 +34,19 @@ You can access the Apache Spark dashbaord at [http://localhost:8084](http://loca
 docker-compose -f docker-compose-ontop.yml up -d
 ```
 This starts an OntopSpark instance.
-In particular the instance is configured to communicate with the Apache Spark Thrift Server.
+The instance is configured to communicate with the Apache Spark Thrift Server.
 The web interface is available at [http://localhost:8090](http://localhost:8090).
 
-If the Ontop instance shuts down after a while, it may be possible that Apache Spark had encountered some problems while loading the demo tables. You can solve the issue by restarting Spark. For more detail, see the [Spark troubleshooting section](#apache-spark).
+If the OntopSpark instance shuts down after a while, it may be possible that Apache Spark had encountered some problems while loading the demo tables. You can solve the issue by restarting Spark. For more detail, see the [Spark troubleshooting section](#apache-spark).
 
 #### 4. Jena Fuseki
 ```
 docker-compose -f docker-compose-jena-fuseki.yml up -d
 ```
-It start a Jena Fuseki container.
-Moreover, once Jena Fuseki is ready, it creates a dataset and upload the Knowledge Graph.
+It starts a Jena Fuseki container.
 You can access the Jene Fuseki web interface at [http://localhost:3030](http://localhost:3030).
 
-Moreover, once Jena Fuseki is ready, it is needed to log in with `admin:admin` and manually load the Knowledge Graph by creating a new _in-memory dataset_ in the `MANAGE DATASETS` section, and upload the `pizza-fuseki.owl` file located in `/jena-fuseki/init`.
+Moreover, once Jena Fuseki is ready, it is needed to log in with `admin:admin` and manually load the Knowledge Graph by creating a new _in-memory dataset_ called `pizzads` using the `MANAGE DATASETS` section, and upload the `pizza-fuseki.owl` file located in `/jena-fuseki/init`.
 
 
 #### 5. Jupyter Notebook
@@ -102,9 +101,9 @@ Given such a requirement, the central branch's Data Scientists have decided to m
 
 Before starting it is needed to load the Knowledge Graph in Jena Fuseki. Go to [http://localhost:3030](http://localhost:3030), and click on the `MANAGE DATASET` section on the top bar, and create a ne new _in-memory dataset_ called `pizzads`. Then, you can __upload__ the ontology file located in `/jena-fuseki/init/pizza-fuseki.owl`.
 
-For runnig the notebook's analytical tasks it is needed to go on the Jupyter web interface. Go to [http://localhost:8888](http://localhost:8888) and click on the __upload__ button on the top right to add two notebooks : `notebook_DS.ipyml` and `notebook_BA.ipyml`. All the subsequent steps of this tutorial are performed inside the two notebooks 
+For runnig the notebook's analytical tasks it is needed to go on the Jupyter web interface. Go to [http://localhost:8888](http://localhost:8888) and click on the __upload__ button on the top right to add two notebooks : `notebook_DS.ipyml` and `notebook_BA.ipyml`. All the subsequent steps of this tutorial are performed inside the two notebooks
 
-Let's start by opening the `notebook_DS.ipyml`. This is the notebook that has been created by the Data Scientist team, which needs to make an anomaly detection anlysis to decide if a pizza cooked by a restaurant is _good_ or _anomalous_. In order to perform their analysis, they have created a __SPARQL query__ to be executed using PySPARQL. This ensures flexibility because they can use any python data science library while benefitting from Peppo's experience captured in the KG.
+Let's start by opening the `notebook_DS.ipyml`. This is the notebook created by the Data Scientist team, which needs to make an anomaly detection anlysis to decide if a pizza cooked by a restaurant is _good_ or _anomalous_. In order to perform their analysis, the decided to use PySPARQL to execute a __SPARQL query__. This ensures flexibility because they can use any python data science library while benefitting from Peppo's experience captured in the KG. The query code is the following.
 
 ```
 sparql_endpoint = "http://jena-fuseki:3030/pizzads"
@@ -135,7 +134,7 @@ query = """
 We can notice that there is a part of the query inside the `SERVICE <http://ontop:8080/sparql>`clause, which is called _federated query_. This part of the query is solved by OntopSpark using the VKG approach, which retrieves the SQL tuples stored in the Spark tables by making SparkSQL queries and translating the results into instances using the SQL-to-RDF mappings. In addition, the KG stored in Jena Fuseki enriches the Ontop Spark result, by adding the semantic information. The remaining part of the query uses the KG to express the decision rules in the `BIND` clause to determine the pizza quality outcome.
 Furthermore, in the example the `:American` pizzas instances are both `:CheeseyPizza` and `:SpicyPizza`, so they have to be cooked according to the optimal parameters asserted for both the classes. This led to some `:American` pizzas be considered _"WELL COOKED"_ for the `:CheeseyPizza` class but not for the `:SpicyPizza` class and vice versa.
 
-The query can be in executed in the notebook with the PySPARQL library, which enables the user to execute a __SPARQL queries__ and get the results automatically translated in __Spark DataFrames__ using the following code.
+The query is executed inside the notebook using the PySPARQL library, which enables the user to execute a __SPARQL queries__ and get the results automatically translated in __Spark DataFrames__ using the following code.
 
 ```
 wrapper = PySPARQLWrapper(spark, sparql_endpoint)
@@ -143,13 +142,13 @@ result = wrapper.query(query)
 resultDF = result.dataFrame
 ```
 
-Completed the analysis, the Data Scientists can use the following code to __persist__ the resuts into a __Spark table__ for making them available to Business Analysts
+Once the analyzes are complete, the Data Scientists can use the following code to __persist__ the resuts into a __Spark table__ for making them available to Business Analysts.
 
 ```
 df2.write.mode("overwrite").saveAsTable('pizzadb.analysis')
 ```
 
-The first iteration of the anlysis is completed. We can now open the second notebook called `notebook_BA.ipyml`. The Business Analysts are interested in creating an histogram showing the most critical restaurants. In this case they need both the Data Scientists results from the first round-trip iteration and the original restaurants data to retrieve in which restaurant a specific pizza has been cooked. Both the information are persisted in Spark tables. In addition, they also need an ontology describing the concept of good or bad quality for the pizzas, which is stored in the Fuseki's Knowledge Graph. The following query notebook's __SPARQL query__ perform a counting operation of the anomalous pizzas over all the quality cheched, in order to display the percentages of anomalous pizzas for each restaurant.
+The first iteration of the analysis is completed. We can now open the second notebook called `notebook_BA.ipyml`. The Business Analysts are interested in creating an histogram showing the most critical restaurants. In this case they need both the Data Scientists results from the first round-trip iteration and the original restaurants data to retrieve in which restaurant a specific pizza has been cooked. Both the information are persisted in Spark tables. In addition, they also need an ontology describing the concept of good or bad quality for the pizzas, which is stored in the Fuseki's Knowledge Graph. The following query notebook's __SPARQL query__ perform a counting operation of the anomalous pizzas over all the quality cheched, in order to display the percentages of anomalous pizzas for each restaurant.
 
 ```
 sparql_endpoint = "http://jena-fuseki:3030/pizzads"
