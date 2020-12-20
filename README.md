@@ -125,7 +125,7 @@ We can notice that there is a part of the query inside the `SERVICE <http://onto
 The query can be in the executed in the notebook with the PySPARQL library, which is able to retrieve the query result and to translate it in a __Spark DataFrame__ using the following code.
 
 ```
-wrapper = SPARQL2SparkWrapper(spark, sparql_endpoint)
+wrapper = PySPARQLWrapper(spark, sparql_endpoint)
 result = wrapper.query(query)
 resultDF = result.dataFrame
 ```
@@ -166,8 +166,8 @@ import pandas as pd
 pandasDF = resultDF.toPandas()
 
 # Build the plot
-df = pd.DataFrame({'RESTAURANTS':pandasDF["restaurant"],'%ANOMALIES':pandasDF["count"].astype(float)})
-ax = df.plot.barh(x='RESTAURANTS', y='% ANOMALIES', stacked=False,figsize=(7,2)
+df = pd.DataFrame({'RESTAURANTS':pandasDF["restaurant"], '% ANOMALIES':pandasDF["count"].astype(float)})
+ax = df.plot.barh(x='RESTAURANTS', y='% ANOMALIES', stacked=False,figsize=(7,2))
 ax.set_ylabel("")
 ax.set_xlim(0,1)
 ```
