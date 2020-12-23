@@ -54,7 +54,18 @@ Moreover, once Jena Fuseki is ready, it is needed to log in with `admin:admin` a
 docker-compose -f docker-compose-jupyter.yml up
 ```
 This is where the Data Scientists and Business Analysts perform their analysis using the notebooks.
-You can access the Jupyter web interface at [http://localhost:8888](http://localhost:8888). The access credentials are available in the terminal outputs, which generates the links.
+
+It is possible to access the Jupyter web interface using the links printed out from the terminal, which have the access token already integrated. For example, if you have this terminal output:
+
+```
+jupyter    |     To access the notebook, open this file in a browser:
+jupyter    |         file:///home/jovyan/.local/share/jupyter/runtime/nbserver-6-open.html
+jupyter    |     Or copy and paste one of these URLs:
+jupyter    |         http://jupyter:8888/?token=8d16d76366b3e11448795a4521fd38ab6b17afbb3d91787a
+jupyter    |      or http://127.0.0.1:8888/?token=8d16d76366b3e11448795a4521fd38ab6b17afbb3d91787a
+```
+
+You can copypaste the last link `http://127.0.0.1:8888/?token=8d16d76366b3e11448795a4521fd38ab6b17afbb3d91787a` on your browser to access the jupyter notebook web UI (`127.0.0.1` means `localhost`).
 
 
 ## Troubleshooting
