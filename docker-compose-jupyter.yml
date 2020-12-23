@@ -1,7 +1,7 @@
 version: "3"
 services:
   jupyter:
-    image: jupyter/pyspark-notebook:latest
+    image: chimerasuite/jupyter-notebook:pysparql0.0.6-spark3.0.1-hadoop3.2
     hostname: jupyter
     container_name: jupyter
     ports:
