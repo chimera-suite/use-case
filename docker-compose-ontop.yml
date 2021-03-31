@@ -3,7 +3,7 @@ services:
   ontop:
     hostname: ontop
     container_name: ontop
-    image: chimerasuite/ontop:fd38fec7a0
+    image: chimerasuite/ontop:8a28efeb7c
     environment: 
       - "ONTOP_ONTOLOGY_FILE=/opt/ontop/input/pizza-minimal-ontop.owl"
       - "ONTOP_MAPPING_FILE=/opt/ontop/input/pizza-minimal-ontop.obda"
