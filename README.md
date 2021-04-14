@@ -24,10 +24,19 @@ You can use jdbc connection to `jdbc:hive2://localhost:10000` to check the table
 ```
 docker-compose -f docker-compose-spark.yml up -d
 ```
-It starts an Apache Spark cluster.
-In particular, the `spark-sidecar` setup component executes a series of SparkSQL statements for creating the Spark tables and performing data insertions.
-Moreover it starts an Apache `Spark Thrift Server`, that exposes a JDBC enpoint for SparkSQL queries.
-You can access the Apache Spark dashbaord at [http://localhost:8084](http://localhost:8084).
+It starts an Apache Spark cluster with 3 workers. You can access the Apache Spark dashbaord at [http://localhost:8081](http://localhost:8081).
+
+Now, you have to load the spark tables by accessing the `thriftserver` docker machine using the following commands.
+
+```
+sudo docker exec -it thriftserver /bin/bash
+
+/spark/bin/spark-sql -f /init/pizzaDB.sql
+```
+
+You can exit the docker machine by typing `exit` on the terminal.
+
+__TROUBLESHOOTING__: If you experience some issue on running the Apache Spark instances, you should probably lower the `thriftserver` resources by changing its parameters in the `docker-compose-spark.yml` file and re-run this section.
 
 #### 3. OntopSpark
 ```
@@ -35,9 +44,10 @@ docker-compose -f docker-compose-ontop.yml up -d
 ```
 This starts an OntopSpark instance.
 The instance is configured to communicate with the Apache Spark Thrift Server.
-The web interface is available at [http://localhost:8090](http://localhost:8090).
 
-If the OntopSpark instance shuts down after a while, it may be possible that Apache Spark had encountered some problems while loading the demo tables. You can solve the issue by restarting Spark. For more detail, see the [Spark troubleshooting section](#apache-spark).
+The web interface is available at [http://localhost:8090](http://localhost:8090). It is possible to use this endpoint for making SPARQL queries over the dataset stored in Apache Spark.
+
+__TROUBLESHOOTING__: If the OntopSpark instance shuts down after a while, it may be possible that Apache Spark had encountered some problems while loading the demo tables. You can solve the issue by restarting Spark in `step 2`.
 
 #### 4. Jena Fuseki
 ```
@@ -68,22 +78,6 @@ jupyter    |      or http://127.0.0.1:8888/?token=8d16d76366b3e11448795a4521fd38
 You can copypaste the last link `http://127.0.0.1:8888/?token=8d16d76366b3e11448795a4521fd38ab6b17afbb3d91787a` on your browser to access the jupyter notebook web UI (`127.0.0.1` means `localhost`).
 
 
-## Troubleshooting
-
-### Apache Spark
-
-The `spark-sidecar` setup component, which is in charge of creating the Spark tables and performing data insertions, may not correctly perform the loadings operations.
-
-You can solve the problem by stopping the `docker-compose-spark.yml` instances and restarting them using the following commands.
-
-```
-docker-compose -f docker-compose-jena-fuseki.yml down
-docker-compose -f docker-compose-jena-fuseki.yml up -d
-```
-Then, you can you can resume the setup from [section 3 (OntopSpark)](#3-ontop).
-
-
-
 ## Running Demo
 
 ### Scenario
@@ -108,7 +102,7 @@ Given such a requirement, the central branch's Data Scientists have decided to m
 
 <img src="/src/chimera_tutorial.png" height="400px" ></img>
 
-### Solution
+### Demo execution
 
 Before starting it is needed to load the Knowledge Graph in Jena Fuseki. Go to [http://localhost:3030](http://localhost:3030), and click on the `MANAGE DATASET` section on the top bar, and create a ne new _in-memory dataset_ called `pizzads`. Then, you can __upload__ the ontology file located in `/jena-fuseki/init/pizza-fuseki.owl`.
 

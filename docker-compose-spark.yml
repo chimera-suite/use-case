@@ -3,38 +3,28 @@ services:
 
 # -------------------- SPARK CLUSTER --------------------
   spark-master:
-    image: bde2020/spark-master:3.0.1-hadoop3.2
+    image: bde2020/spark-master:3.1.1-hadoop3.2
     hostname: spark-master
     container_name: spark-master
     ports:
-      - "8084:8080"
+      - "8081:8080"
       - "7077:7077"
     environment:
       - INIT_DAEMON_STEP=setup_spark
   spark-worker-1:
-    image: bde2020/spark-worker:3.0.1-hadoop3.2
+    image: bde2020/spark-worker:3.1.1-hadoop3.2
     hostname: spark-worker-1
     container_name: spark-worker-1
-    depends_on:
-      - spark-master
-    ports:
-      - "8081:8081"
-    environment:
-      - "SPARK_MASTER=spark://spark-master:7077"
-  spark-worker-2:
-    image: bde2020/spark-worker:3.0.1-hadoop3.2
-    hostname: spark-worker-2
-    container_name: spark-worker-2
     depends_on:
       - spark-master
     ports:
       - "8082:8081"
     environment:
       - "SPARK_MASTER=spark://spark-master:7077"
-  spark-worker-3:
-    image: bde2020/spark-worker:3.0.1-hadoop3.2
-    hostname: spark-worker-3
-    container_name: spark-worker-3
+  spark-worker-2:
+    image: bde2020/spark-worker:3.1.1-hadoop3.2
+    hostname: spark-worker-2
+    container_name: spark-worker-2
     depends_on:
       - spark-master
     ports:
@@ -44,7 +34,7 @@ services:
 
 # -------------------- SPARK THRIFTSERVER --------------------
   thriftserver:
-    image: chimerasuite/thriftserver:3.0.1-hadoop3.2
+    image: chimerasuite/thriftserver:3.1.1-hadoop3.2
     hostname: thriftserver
     container_name: thriftserver
     depends_on:
@@ -53,23 +43,13 @@ services:
       - "10001:10000"
     environment:
       - "SPARK_MASTER=spark-master:7077"
+      - "TOTAL_EXECUTOR_CORES=2"
+      - "EXECUTOR_MEMORY=4G"
+      - "DRIVER_MAX_RESULT_SIZE=4G"
       - "HADOOP_CONF_DIR=/spark/conf/hive-site.xml"
     volumes: 
       - "./spark/conf/hive-site.xml:/spark/conf/hive-site.xml"
-
-# -------------------- SPARK SETUP --------------------
-  spark-sidecar-setup:
-    image: chimerasuite/spark-sidecar-setup:3.0.1-hadoop3.2
-    hostname: spark-sidecar-setup
-    container_name: spark-sidecar-setup
-    depends_on:
-      - spark-master
-    environment:
-      - "SPARK_MASTER=spark-master:7077"
-      - "HADOOP_CONF_DIR=/spark/conf/hive-site.xml"
-    volumes: 
       - "./spark/init:/init"
-      - "./spark/conf/hive-site.xml:/spark/conf/hive-site.xml"
 
 networks:
   default:
